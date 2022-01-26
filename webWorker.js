@@ -1,7 +1,7 @@
 let socket = null;
 
 const estabilishConnection = () => {
-  socket = new WebSocket("wss://javascript.info/article/websocket/chat/ws");
+  socket = new WebSocket("ws:/localhost:3000");
 
   socket.addEventListener("open", () => {
     console.log("Connection estabilished with server");

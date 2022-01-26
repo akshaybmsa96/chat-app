@@ -14,12 +14,14 @@ const ConnectionStatus = {
 
 class ChatAPI {
   constructor() {
+    this.currentState = ConnectionStatus.disconnected;
     this.sendButton = document.getElementById("send-button");
     this.userInput = document.getElementById("user-input");
     this.stopButton = document.getElementById("stop-button");
-    this.currentState = ConnectionStatus.disconnected;
     this.chatMsgArea = document.getElementById("chatMsgArea");
     this.statusContainer = document.getElementById("status-container");
+
+    this.updateConnectionStatus();
 
     if (this.sendButton) {
       this.sendButton.addEventListener("click", () => {
@@ -63,6 +65,8 @@ class ChatAPI {
   stopConnection() {
     if (this.worker) {
       this.worker.postMessage(JSON.stringify({ type: "stop" }));
+    } else {
+      this.initializeConnection();
     }
   }
 
@@ -105,18 +109,23 @@ class ChatAPI {
       case MsgType.sent:
         const sentMsgContainer = this.getSentMsgDiv(msg);
         this.chatMsgArea && this.chatMsgArea.appendChild(sentMsgContainer);
+        this.chatMsgArea.scrollTop = this.chatMsgArea.scrollHeight;
         break;
       case MsgType.received:
         const receivedMsgContainer = this.getReceivedMsgDiv(msg);
         this.chatMsgArea && this.chatMsgArea.appendChild(receivedMsgContainer);
+        this.chatMsgArea.scrollTop = this.chatMsgArea.scrollHeight;
         break;
       case MsgType.open:
         this.currentState = ConnectionStatus.connected;
+        this.stopButton.innerText = "STOP CHAT";
         this.updateConnectionStatus();
         break;
       case MsgType.close:
         this.currentState = ConnectionStatus.disconnected;
+        this.stopButton.innerText = "START CHAT";
         this.worker.terminate();
+        this.worker = null;
         this.updateConnectionStatus();
         break;
       default:
@@ -144,5 +153,5 @@ class ChatAPI {
 
 window.addEventListener("DOMContentLoaded", () => {
   const chat = new ChatAPI();
-  chat.initializeConnection();
+  // chat.initializeConnection();
 });

@@ -1,0 +1,14 @@
+{
+  "name": "chatbotserver",
+  "version": "1.0.0",
+  "description": "chat bot server",
+  "main": "index.js",
+  "scripts": {
+    "start": "kill -9 $(lsof -ti:3000); node index.js"
+  },
+  "author": "Akshay Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.4.2"
+  }
+}

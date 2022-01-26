@@ -15,6 +15,7 @@ body {
 
 h1 {
   flex: 1;
+  margin: 5px;
 }
 
 section {
@@ -24,14 +25,14 @@ section {
   flex: 10;
   align-items: center;
   border: 1px solid gray;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   box-shadow: 4px 3px grey;
   overflow: hidden;
 }
 
 #chatSection {
   display: flex;
-  flex: 10;
+  flex: 11;
   width: 100%;
   padding: 5px;
   overflow: hidden;
@@ -51,6 +52,10 @@ section {
   flex-direction: column;
   align-items: start;
   overflow: auto;
+}
+
+#chatMsgArea::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .msgBox {
@@ -77,10 +82,18 @@ section {
 
 #send-button {
   flex: 1;
+  background-color: #86b32d;
+  color: white;
+  border: none;
+  outline: none;
 }
 
 #stop-button {
   flex: 3;
+  background-color: #bababa;
+  color: white;
+  border: none;
+  outline: none;
 }
 
 #status-container {
